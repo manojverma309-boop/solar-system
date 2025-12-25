@@ -6,11 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sun 3D Model</title>
 
-  <!-- model-viewer web component (loads GLB/GLTF in browser) -->
+  <!-- Load model-viewer web component -->
   https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js</script>
 
   <style>
-    /* Simple centered layout */
     body {
       margin: 0;
       min-height: 100vh;
@@ -33,9 +32,8 @@
 </head>
 <body>
 
-  <!-- Keep sun.glb in the repository root next to index.html -->
-  <!-- If needed, switch to absolute path: src="/solar-system/sun.glb" -->
-  sun.glb
+  <!-- Use absolute path to your GLB on GitHub Pages -->
+  <model-viewem/sun.glb
     <div slot="poster">Loading 3D model…</div>
     <div slot="progress-bar" class="bar"></div>
   </model-viewer>
@@ -44,9 +42,8 @@
     // Show an alert if the model fails to load (helps debug path/name issues)
     const v = document.getElementById('viewer');
     v.addEventListener('error', () => {
-      alert('Model load error — कृपया सुनिश्चित करें कि sun.glb root में है और नाम/पाथ सही है।');
+      alert('Model load error — कृपया सुनिश्चित करें कि /solar-system/sun.glb सही जगह और सही नाम (case) में है।');
     });
   </script>
 </body>
 </html>
-``
