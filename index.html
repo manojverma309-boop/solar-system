@@ -4,39 +4,51 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Solar System - Sun 3D</title>
+  <title>Solar System — Sun 3D</title>
 
-  <!-- model-viewer web component (loads GLB/GLTF in browser) -->
+  <!-- model-viewer web component (GLB/GLTF को ब्राउज़र में दिखाने के लिए) -->
   https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js</script>
 
+  <!-- बेसिक स्टाइल -->
   <style>
-    /* Simple centered layout */
     :root { color-scheme: dark light; }
+    * { box-sizing: border-box; }
     body {
       margin: 0;
       min-height: 100vh;
       display: grid;
       place-items: center;
-      background: radial-gradient(circle at 50% 20%, #0b1a33, #000);
-      font-family: Arial, sans-serif;
+      background: radial-gradient(circle at 50% 15%, #0b1a33, #000);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color: #fff;
     }
     .wrap {
-      width: min(90vw, 700px);
+      width: min(94vw, 900px);
+      padding: 16px 20px;
       text-align: center;
     }
+    h1 { margin: 0 0 8px; font-size: 1.6rem; }
+    p  { margin: 0 0 14px; color: #c7d3e3; font-size: .98rem; }
     model-viewer {
       width: 100%;
-      height: 500px;
+      height: clamp(360px, 70vh, 620px);
       border: 1px solid #2e3b55;
       border-radius: 14px;
       background: #111;
+      --poster-color: #111;
     }
-    h1 { margin: 10px 0 6px; font-size: 1.4rem; }
-    p  { margin: 4px 0 14px; color: #c7d3e3; font-size: .95rem; }
-    footer { margin-top: 12px; opacity: .7; font-size: .85rem; }
+    .bar { height: 4px; background: #2e3b55; }
+    .row { display: flex; gap: 10px; justify-content: center; margin-top: 10px; }
+    button {
+      background: #17375b; color: #fff; border: 1px solid #2e3b55; border-radius: 10px;
+      padding: 8px 12px; cursor: pointer; font-weight: 600;
+    }
+    button:hover { filter: brightness(1.1); }
+    footer { margin-top: 12px; opacity: .75; font-size: .88rem; }
     a { color: #7fb3ff; text-decoration: none; }
     a:hover { text-decoration: underline; }
+    /* एरर मैसेज */
+    #err { display:none; margin-top: 10px; color: #ffb3b3; font-weight: 600; }
   </style>
 </head>
 <body>
@@ -44,13 +56,30 @@
     <h1>Sun 3D Model</h1>
     <p>माउस/टच से घुमाएँ, स्क्रोल से ज़ूम करें।</p>
 
-    <!-- NOTE: Keep sun.glb in the repository root next to index.html -->
-    <model-viewer src="sun.glb"
-                  alt="Sun GLB model"
-                  camera-controls
-                  auto-rotate
-                  shadow-intensity="1"
-                  exposure="0.9"
-                  environment-image="https://modelviewer.dev/shared-assets/environments/ubicity.hdr"
-                  ar
-                  ar-modes="
+    <!-- NOTE: sun.glb को index.html के साथ रूट (root) में रखें -->
+    sun.glb
+      <div slot="poster">Loading 3D model…</div>
+      <div slot="progress-bar" class="bar"></div>
+    </model-viewer>
+
+    <div id="err">Model load error — कृपया सुनिश्चित करें कि <code>sun.glb</code> फाइल root में है और नाम सही है।</div>
+
+    <div class="row">
+      <button onclick="document.getElementById('viewer').resetTurntableRotation()">रीसेट रोटेशन</button>
+      <button onclick="document.getElementById('viewer').requestFullscreen()">फुल-स्क्रीन</button>
+    </div>
+
+    <footer>
+      Powered by https://modelviewer.devmodel-viewer</a>
+    </footer>
+  </div>
+
+  <script>
+    // अगर मॉडल लोड में एरर आए तो मैसेज दिखाएँ
+    const v = document.getElementById('viewer');
+    v.addEventListener('error', () => {
+      document.getElementById('err').style.display = 'block';
+    });
+  </script>
+</body>
+</html>
