@@ -6,35 +6,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sun 3D Model</title>
 
-  <!-- model-viewer लाइब्रेरी सही तरीके से जोड़ें -->
-  
-src="https://modelviewer.dev/shared-assets/models/Astronaut.glb"
-
+  <!-- model-viewer web component (loads GLB/GLTF in browser) -->
+  https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js</script>
 
   <style>
-    body { margin:0; min-height:100vh; display:grid; place-items:center;
-           background:#0b1a33; color:#fff; font-family:Arial, sans-serif; }
-    model-viewer { width:90vw; max-width:700px; height:500px; background:#111;
-                   border:1px solid #2e3b55; border-radius:12px; }
-    .bar { height:4px; background:#2e3b55; }
+    /* Simple centered layout */
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: #0b1a33;  /* dark blue */
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+    model-viewer {
+      width: 90vw;
+      max-width: 700px;
+      height: 500px;
+      background: #111;
+      border: 1px solid #2e3b55;
+      border-radius: 12px;
+    }
+    .bar { height: 4px; background: #2e3b55; }
   </style>
 </head>
 <body>
 
-  <!-- पूरा model-viewer टैग और सही src -->
-  <model-viewer id="vieweroster">Loading 3D model…</div>
+  <!-- Keep sun.glb in the repository root next to index.html -->
+  <!-- If needed, switch to absolute path: src="/solar-system/sun.glb" -->
+  sun.glb
+    <div slot="poster">Loading 3D model…</div>
     <div slot="progress-bar" class="bar"></div>
   </model-viewer>
 
-  <p style="opacity:.8;margin-top:10px">Powered by
-    https://modelviewer.devmodel-viewer</a>
-  </p>
-
   <script>
-    // Error आने पर मैसेज दिखाएँ (वैकल्पिक)
+    // Show an alert if the model fails to load (helps debug path/name issues)
     const v = document.getElementById('viewer');
-    v.addEventListener('error', () => alert('Model load error — कृपया सुनिश्चित करें कि sun.glb रूट में है और नाम सही है।'));
+    v.addEventListener('error', () => {
+      alert('Model load error — कृपया सुनिश्चित करें कि sun.glb root में है और नाम/पाथ सही है।');
+    });
   </script>
 </body>
 </html>
-
+``
